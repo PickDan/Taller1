@@ -5,7 +5,7 @@ export default function PuntajeScreen({navigation}:any) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>PUNTUACIÓN ANTERIOR</Text>
-      <Text style={styles.puntaje}>Puntaje: {}</Text>
+      <Text style={styles.puntaje}>Puntaje : {}</Text>
       <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
         <Text style={styles.buttonText}>Volver al juego</Text>
       </TouchableOpacity>

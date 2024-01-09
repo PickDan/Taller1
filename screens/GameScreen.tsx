@@ -1,18 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import insecto from '../components/insecto'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import "react-native-gesture-handler"
+import {GestureHandlerRootView} from 'react-native-gesture-handler'
+import Game from '../components/Game'
 
-{/*const Datos=[
-    { id: '1', nombre: 'Cucaracha', imagen: require('./assets/insectos/cucaracha.jpg') },
-    { id: '2', nombre: 'Mosca', imagen: require('./assets/insectos/mosca.jpg') },
-]*/}
-export default function GameScreen() {
+
+export default function GameScreen():JSX.Element {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>CAZA DE INSECTOS</Text>
-      <Text style={styles.puntaje}>Puntaje: 0</Text>
-      <Text style={styles.tiempo}>Tiempo restante: 60 segundos</Text>
-    </View>
+    <GestureHandlerRootView style={{flex: 1, backgroundColor: 'gray'}}>
+      <Game/>
+    </GestureHandlerRootView>
+        
   )
 }
 
@@ -37,4 +35,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 20,
       },
+
 })
