@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import GameScreen from '../screens/GameScreen'
 import PuntajeScreen from '../screens/PuntajeScreen'
 import RegistroScreen from '../screens/RegistroScreen'
+import LoginScreen from '../screens/LoginScreen'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,6 +23,7 @@ function MyTabs(){
 function MyStack(){
     return(
         <Stack.Navigator>
+            <Stack.Screen name='Login' component={LoginScreen}/>
             <Stack.Screen name='Registro' component={RegistroScreen}/>
             <Stack.Screen name='Tab' component={MyTabs}/>
         </Stack.Navigator>

@@ -1,12 +1,45 @@
-import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
+import React, { useState } from 'react'
+//FIREBASE
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../config/Config';
 
 export default function RegistroScreen({navigation}:any) {
+  
+  const [correo, setcorreo] = useState('')
+  const [contrasenia, setcontrasenia] = useState('')
+  
+  function registro(){
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, correo, contrasenia)
+    .then((userCredential) => {
+      // Signed up 
+      const user = userCredential.user;
+      //console.log('REGISTRO CORRECTO')
+      navigation.navigate('Login')
+
+      setcorreo('')
+      setcontrasenia('')
+      
+  })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      
+      console.log(errorCode)
+      
+      if(errorCode ==='auth/weak-password'){
+        Alert.alert("Error", "La contrasenia debe poseer 6 caracteres")
+      }
+  });
+
+  }
+
   return (
     <View style={styles.container}>
         <Text style={styles.title}>REGISTRARSE</Text>
         <Text>  </Text>
-        <img src='https://th.bing.com/th/id/OIP.JpWcvibu5U1Gnl2YlJe9wAAAAA?rs=1&pid=ImgDetMain' style={styles.image}/>
+        <Image source={{uri: 'https://th.bing.com/th/id/OIP.JpWcvibu5U1Gnl2YlJe9wAAAAA?rs=1&pid=ImgDetMain'}} style={styles.image}/>
         <Text>  </Text>
         <TextInput
         placeholder='Usuario'
