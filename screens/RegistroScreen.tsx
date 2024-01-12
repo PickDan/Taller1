@@ -2,7 +2,8 @@ import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Ale
 import React, { useState } from 'react'
 //FIREBASE
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../config/Config';
+import { auth, db } from '../config/Config';
+import { ref, set } from 'firebase/database';
 
 
 export default function RegistroScreen({ navigation }: any) {
@@ -11,10 +12,20 @@ export default function RegistroScreen({ navigation }: any) {
   const [contrasenia, setcontrasenia] = useState('')
   const [apodo, setapodo] = useState('')
 
+  function guardar(correo: string, apodo: string) {
+    set(ref(db, 'usuarios/' + apodo), {
+      email: correo,
+      nick: apodo
+      
+    });
+  }
+
   function registro() {
     //const auth = getAuth();
     createUserWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
+
+
         // Signed up 
         const user = userCredential.user;
         //console.log('REGISTRO CORRECTO')
@@ -35,6 +46,16 @@ export default function RegistroScreen({ navigation }: any) {
         }
       });
 
+  }
+  function GuardaryRegistrar() {
+    // promise all  toma un array de promesas y devuelve una nueva promesa que se ejecuta cuando todas las promesas en el array se han resuelto. 
+    Promise.all([guardar(correo, apodo), registro()])
+      .then(() => {
+        console.log('Ambas funciones de Firebase ejecutadas correctamente.');
+      })
+      .catch((error) => {
+        console.error('Error al ejecutar funciones', error);
+      });
   }
 
   return (
@@ -60,14 +81,14 @@ export default function RegistroScreen({ navigation }: any) {
         placeholder='Ingrese un apodo'
         onChangeText={(texto) => setapodo(texto)}
         style={styles.input}
-        
+
       />
 
       <TouchableOpacity style={styles.createAccount} onPress={() => navigation.goBack()}>
         <Text style={{ color: 'green', textDecorationLine: 'underline' }}>¿Ya tienes cuenta? Inicia Sesión</Text>
       </TouchableOpacity>
 
-      <Button title='Registrarse' onPress={() => registro()} />
+      <Button title='Registrarse' onPress={GuardaryRegistrar} />
     </View>
   )
 }
