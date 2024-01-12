@@ -4,13 +4,12 @@ import {getAuth} from 'firebase/auth'
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAniD3HN29H93G5MiC-tcbMwELFmkiY9hA",
-  authDomain: "app-ejercicio-clase.firebaseapp.com",
-  databaseURL: "https://app-ejercicio-clase-default-rtdb.firebaseio.com",
-  projectId: "app-ejercicio-clase",
-  storageBucket: "app-ejercicio-clase.appspot.com",
-  messagingSenderId: "910621348192",
-  appId: "1:910621348192:web:1cba2d5b5ed335d78bce05"
+  apiKey: "AIzaSyCaufu4QoA8eS4pee9rVYkvU_oSmL_mCcg",
+  authDomain: "proyectof-e5382.firebaseapp.com",
+  projectId: "proyectof-e5382",
+  storageBucket: "proyectof-e5382.appspot.com",
+  messagingSenderId: "419915887314",
+  appId: "1:419915887314:web:80131428a9a40cdc50f30b"
 };
 
 // Initialize Firebase

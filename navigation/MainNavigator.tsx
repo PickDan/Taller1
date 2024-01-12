@@ -26,6 +26,7 @@ function MyStack(){
             <Stack.Screen name='Login' component={LoginScreen}/>
             <Stack.Screen name='Registro' component={RegistroScreen}/>
             <Stack.Screen name='Tab' component={MyTabs}/>
+            <Tab.Screen name='Game' component={GameScreen}/>
         </Stack.Navigator>
     )
 }
