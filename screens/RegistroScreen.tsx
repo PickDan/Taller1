@@ -8,20 +8,22 @@ import { auth, db } from '../config/Config';
 
 export default function RegistroScreen({ navigation }: any) {
 
-  const [correo, setcorreo] = useState('')
-  const [contrasenia, setcontrasenia] = useState('')
-  const [apodo, setapodo] = useState('')
+  const [correo, setCorreo] = useState('')
+  const [contrasenia, setContrasenia] = useState('')
+  const [apodo, setApodo] = useState('')
+  const [ciudad, setCiudad] = useState('')
 
-  function guardar(correo: string, apodo: string) {
+  //CRATE - SET - GUARDAR
+  function guardar(apodo: string, correo: string, contrasenia: string, ciudad: string) {
     set(ref(db, 'usuarios/' + apodo), {
       email: correo,
-      nick: apodo
-      
+      password: contrasenia,
+      city: ciudad
     });
   }
 
   function registro() {
-    //const auth = getAuth();
+    
     createUserWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
 
@@ -31,8 +33,10 @@ export default function RegistroScreen({ navigation }: any) {
         //console.log('REGISTRO CORRECTO')
         navigation.navigate('Login')
 
-        setcorreo('')
-        setcontrasenia('')
+        /*setCorreo('')
+        setContrasenia('')
+        setApodo('')
+        setCiudad('')*/
 
       })
       .catch((error) => {
@@ -63,12 +67,17 @@ export default function RegistroScreen({ navigation }: any) {
   }
   function GuardaryRegistrar() {
     // promise all  toma un array de promesas y devuelve una nueva promesa que se ejecuta cuando todas las promesas en el array se han resuelto. 
-    Promise.all([guardar(correo, apodo), registro()])
+    Promise.all([guardar(correo, contrasenia, apodo, ciudad), registro()])
       .then(() => {
         console.log('Ambas funciones de Firebase ejecutadas correctamente.');
       })
       .catch((error) => {
         console.error('Error al ejecutar funciones', error);
+
+        setCorreo('')
+        setContrasenia('')
+        setApodo('')
+        setCiudad('')
       });
   }
 
@@ -78,24 +87,33 @@ export default function RegistroScreen({ navigation }: any) {
       <Image source={{ uri: 'https://th.bing.com/th/id/OIP.JpWcvibu5U1Gnl2YlJe9wAAAAA?rs=1&pid=ImgDetMain' }} style={styles.image} />
 
       <TextInput
-        placeholder='Usuario'
+        placeholder='Ingrese un Correo'
         keyboardType='email-address'
-        onChangeText={(texto) => setcorreo(texto)}
+        onChangeText={(texto) => setCorreo(texto)}
         style={styles.input}
+        value={correo}
       />
 
       <TextInput
-        placeholder='Contraseña'
-        onChangeText={(texto) => setcontrasenia(texto)}
+        placeholder='Ingrese una Contraseña'
+        onChangeText={(texto) => setContrasenia(texto)}
         style={styles.input}
         secureTextEntry={true}
+        value={contrasenia}
       />
 
       <TextInput
-        placeholder='Ingrese un apodo'
-        onChangeText={(texto) => setapodo(texto)}
+        placeholder='Ingrese un Apodo'
+        onChangeText={(texto) => setApodo(texto)}
         style={styles.input}
+        value={apodo}
+      />
 
+      <TextInput
+        placeholder='Ingrese su Ciudad'
+        onChangeText={(texto) => setCiudad(texto)}
+        style={styles.input}
+        value={ciudad}
       />
 
       <TouchableOpacity style={styles.createAccount} onPress={() => navigation.goBack()}>
