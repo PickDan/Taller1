@@ -1,11 +1,10 @@
 import { initializeApp } from "firebase/app";
-import {getDatabase} from 'firebase/database'
-//import {getAuth} from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
+import { getDatabase } from 'firebase/database'
 
 //CORREGIR EL WARNING
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyCB9S79qDdB8sKPhzS-55DYk9uEO81Mwdg",
@@ -18,11 +17,13 @@ const firebaseConfig = {
 };
 
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const db = getDatabase(app);
 //export const auth=getAuth(app)
+
+export const db= getDatabase(app)
 
 export const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
