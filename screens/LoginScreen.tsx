@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View, TextInput, Alert } from 'react-native'
+import { Button, StyleSheet, Text, View, TextInput, Alert, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 
 //Firebase
@@ -74,8 +74,9 @@ export default function LoginScreen({navigation}: any) {
 
       <Button title='Ingresar' onPress={()=> login() }/>
       
-      <Text onPress={()=> navigation.navigate('Registro')}> 👉 Regístrate aquí 👈</Text>  
-    </View>
+      <Text onPress={()=> navigation.navigate('Registro')} style={styles.createAccount} > ¿No tienes cuenta? 👉 Regístrate aquí 👈</Text> 
+      
+   </View>
   )
 }
 
@@ -99,6 +100,11 @@ const styles = StyleSheet.create({
         borderRadius:30,
         paddingHorizontal:50,
         marginBottom: 20
+      },
+      createAccount: {
+        color: 'green',
+        textDecorationLine: 'underline',
+        marginBottom: 20,
       }
     
 })

@@ -1,19 +1,29 @@
 import { initializeApp } from "firebase/app";
-import {getAuth} from 'firebase/auth'
+import {getDatabase} from 'firebase/database'
+//import {getAuth} from 'firebase/auth'
 
+//CORREGIR EL WARNING
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAniD3HN29H93G5MiC-tcbMwELFmkiY9hA",
-  authDomain: "app-ejercicio-clase.firebaseapp.com",
-  databaseURL: "https://app-ejercicio-clase-default-rtdb.firebaseio.com",
-  projectId: "app-ejercicio-clase",
-  storageBucket: "app-ejercicio-clase.appspot.com",
-  messagingSenderId: "910621348192",
-  appId: "1:910621348192:web:1cba2d5b5ed335d78bce05"
+  apiKey: "AIzaSyCB9S79qDdB8sKPhzS-55DYk9uEO81Mwdg",
+  authDomain: "prueba-vg.firebaseapp.com",
+  databaseURL: "https://prueba-vg-default-rtdb.firebaseio.com",
+  projectId: "prueba-vg",
+  storageBucket: "prueba-vg.appspot.com",
+  messagingSenderId: "944325477424",
+  appId: "1:944325477424:web:937d7353189be9605ad9f5"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const auth=getAuth(app)
+export const db = getDatabase(app);
+//export const auth=getAuth(app)
+
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
