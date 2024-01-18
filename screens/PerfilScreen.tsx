@@ -1,9 +1,28 @@
 import { StyleSheet, Text,TextInput, View, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+///FIREBASE
+import { ref, onValue } from "firebase/database";
+import { auth, db } from '../config/Config';
 
 export default function PerfilScreen({ navigation }: any) {
 
-    const [apodo, setApodo] = useState('')
+    const [datos, setDatos] = useState([])
+
+    ///LEER - onValue - LEER
+  
+  useEffect(() => {
+    function leer(){
+      const starCountRef = ref(db, 'usuarios/');
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        setDatos(data)
+        console.log(datos)
+      });
+    }
+
+    leer()
+
+  }, [])
 
   return (
     <View>
@@ -15,7 +34,7 @@ export default function PerfilScreen({ navigation }: any) {
 
       <TextInput
         placeholder='Ingrese un apodo'
-        onChangeText={(texto) => setApodo(texto)}
+        //onChangeText={(texto) => setDatos(texto)}
         style={styles.input}
 
       />

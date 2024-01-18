@@ -13,21 +13,10 @@ export default function RegistroScreen({ navigation }: any) {
   const [apodo, setApodo] = useState('')
   const [ciudad, setCiudad] = useState('')
 
-  //CRATE - SET - GUARDAR
-  function guardar(apodo: string, correo: string, contrasenia: string, ciudad: string) {
-    set(ref(db, 'usuarios/' + apodo), {
-      email: correo,
-      password: contrasenia,
-      city: ciudad
-    });
-  }
-
   function registro() {
     
     createUserWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
-
-
         // Signed up 
         const user = userCredential.user;
         //console.log('REGISTRO CORRECTO')
@@ -65,20 +54,20 @@ export default function RegistroScreen({ navigation }: any) {
       });
 
   }
-  function GuardaryRegistrar() {
-    // promise all  toma un array de promesas y devuelve una nueva promesa que se ejecuta cuando todas las promesas en el array se han resuelto. 
-    Promise.all([guardar(correo, contrasenia, apodo, ciudad), registro()])
-      .then(() => {
-        console.log('Ambas funciones de Firebase ejecutadas correctamente.');
-      })
-      .catch((error) => {
-        console.error('Error al ejecutar funciones', error);
+  
+   //CRATE - SET - GUARDAR
+   function guardar(apodo: string, correo: string, contrasenia: string, ciudad: string) {
+    set(ref(db, 'usuarios/' + apodo), {
+      email: correo,
+      password: contrasenia,
+      city: ciudad
+    });
+  }
 
-        setCorreo('')
-        setContrasenia('')
-        setApodo('')
-        setCiudad('')
-      });
+
+  function compuesta(){
+    registro();
+    guardar(apodo,correo, contrasenia,ciudad)
   }
 
   return (
@@ -120,10 +109,11 @@ export default function RegistroScreen({ navigation }: any) {
         <Text style={{ color: 'green', textDecorationLine: 'underline' }}>¿Ya tienes cuenta? Inicia Sesión</Text>
       </TouchableOpacity>
 
-      <Button title='Registrarse' onPress={GuardaryRegistrar} />
+      <Button title='Registrar' onPress={()=> compuesta() }/>
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -175,3 +165,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 })
+
+//<Button title='Guardar' onPress={()=> guardar(apodo, correo, contrasenia, ciudad) }/>
+//<Button title='Registrar' onPress={()=> registro() }/>
