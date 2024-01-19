@@ -11,16 +11,20 @@ export default function RegistroScreen({ navigation }: any) {
   const [correo, setCorreo] = useState('')
   const [contrasenia, setContrasenia] = useState('')
   const [apodo, setApodo] = useState('')
-  const [ciudad, setCiudad] = useState('')
+  const [nombre, setNombre] = useState('')
+  
+  const [userId, setuserId] = useState('')
+
 
   function registro() {
-    
-    createUserWithEmailAndPassword(auth, correo, contrasenia)
+        createUserWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
-        //console.log('REGISTRO CORRECTO')
-        navigation.navigate('Login')
+        console.log('REGISTRO CORRECTO')
+        //navigation.navigate('Login')
+
+        console.log(user.uid);
 
         /*setCorreo('')
         setContrasenia('')
@@ -56,19 +60,22 @@ export default function RegistroScreen({ navigation }: any) {
   }
   
    //CRATE - SET - GUARDAR
-   function guardar(apodo: string, correo: string, contrasenia: string, ciudad: string) {
-    set(ref(db, 'usuarios/' + apodo), {
+   function guardar(userId: string, apodo: string, correo: string, nombre: string) {
+    set(ref(db, 'usuarios/' + userId), {
+      nick: apodo,
       email: correo,
-      password: contrasenia,
-      city: ciudad
+      name: nombre
     });
   }
 
 
   function compuesta(){
     registro();
-    guardar(apodo,correo, contrasenia,ciudad)
+    guardar(apodo,correo, contrasenia,nombre)
   }
+
+
+
 
   return (
     <View style={styles.container}>
@@ -99,10 +106,10 @@ export default function RegistroScreen({ navigation }: any) {
       />
 
       <TextInput
-        placeholder='Ingrese su Ciudad'
-        onChangeText={(texto) => setCiudad(texto)}
+        placeholder='Ingrese su Nombre'
+        onChangeText={(texto) => setNombre(texto)}
         style={styles.input}
-        value={ciudad}
+        value={nombre}
       />
 
       <TouchableOpacity style={styles.createAccount} onPress={() => navigation.goBack()}>

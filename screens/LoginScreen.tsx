@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 //Firebase
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../config/Config';
-import GameScreen from './GameScreen';
+//import GameScreen from './GameScreen';
 import Game from '../components/Game';
 
 
@@ -82,7 +82,9 @@ export default function LoginScreen({ navigation }: any) {
       </TouchableOpacity>
 
       <Text style={styles.registerText}onPress={() => navigation.navigate('Registro')}> 👉 Regístrate aquí 👈</Text>
-    </View>
+
+      <Text style={styles.registerText} onPress={() => navigation.navigate('Perfil')}></Text>
+      </View>
   )
 }
 
